@@ -4,15 +4,18 @@ This app displays lists of vocabulary words for the user to learn the Miwok lang
 Used in a Udacity course in the Beginning Android Nanodegree.
 
 
-<a href="url"><img src="https://github.com/EdwardCraft/Miwok-app/blob/version-1/device-2017-11-27-095720.png?raw=true" align="left" height="500" width="250" ></a>
-
-
+<a href="url"><img src="https://github.com/EdwardCraft/Miwok-app/blob/version-1/device-2017-11-27-095720.png?raw=true" align="left" height="500" width="250"></a>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br><br><br>
+<br><br>
 Pre-requisites
 --------------
 
-- Android SDK v23
-- Android Build Tools v23.0.2
-- Android Support Repository v23.3.0
+ - Android SDK v23
+ - Android Build Tools v23.0.2
+ - Android Support Repository v23.3.0
 
 Getting Started
 ---------------
@@ -28,6 +31,7 @@ Support
 
 Patches are encouraged, and may be submitted by forking this project and
 submitting a pull request through GitHub. Please see CONTRIBUTING.md for more details.
+
 
 License
 -------
