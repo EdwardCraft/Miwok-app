@@ -11,19 +11,6 @@ public class Utils {
     public static final int NO_DATA = -1;
     public static final String AUDIO_END_MESSAGE = "audio finish!";
 
-    //Fragments
-    public static final int NUMBERS_OF_FRAGMENTS = 4;
-
-    public static final int NUMBERS_FRAGMENT = 0;
-    public static final int FAMILY_FRAGMENT = 1;
-    public static final int COLORS_FRAGMENT = 2;
-    public static final int PHRASES_FRAGMENT = 3;
-
-    public static final String NUMBER_FRAGMENT_NAME = "NumbersFragment";
-    public static final String COLORS_FRAGMENT_NAME = "ColorsFragment";
-    public static final String FAMILY_FRAGMENT_NAME = "FamilyFragment";
-    public static final String PHRASES_FRAGMENT_NAME = "PhrasesFragment";
-
 
 
     public static MediaPlayer releaseMediaPlayer(MediaPlayer audio){

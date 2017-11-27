@@ -1,30 +1,43 @@
+/*
+ * Copyright (C) 2016 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.android.miwok;
-
 
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
+
 
 import java.util.ArrayList;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public class PhrasesFragment extends Fragment {
-    public static final String  TAG = PhrasesFragment.class.getSimpleName();
+public class NumbersActivity extends AppCompatActivity {
+    public static final String TAG = NumbersActivity.class.getName();
+    public static final int NUMBERS_SIZE = 10;
 
-    private ArrayList<Word> phrases;
-    private WordAdapter phrasesAdapter;
+    private WordAdapter numbersAdapter;
+    private ArrayList<Word> numbers;
     private MediaPlayer audio;
+
     private AudioManager mAudioManager;
+
 
     private AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener = new AudioManager.OnAudioFocusChangeListener() {
         @Override
@@ -53,7 +66,6 @@ public class PhrasesFragment extends Fragment {
         }
     };
 
-
     private MediaPlayer.OnCompletionListener mOnCompletionListener = new MediaPlayer.OnCompletionListener(){
         @Override
         public void onCompletion(MediaPlayer mp) {
@@ -64,41 +76,43 @@ public class PhrasesFragment extends Fragment {
         }
     };
 
-    public PhrasesFragment() {
-        // Required empty public constructor
-    }
-
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.word_list, container, false);
-        mAudioManager = (AudioManager)getActivity().getSystemService(Context.AUDIO_SERVICE);
-        setPhrases();
-        setUpAdapter(rootView);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_numbers);
+        mAudioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
 
-        return rootView;
-    }
+        setUpNumbers();
+        setUpArrayAdapter();
 
-    private void setPhrases(){
-        phrases = new ArrayList<>();
-        phrases.add(new Word("Where ara you going?","minto wuksus", Utils.NO_DATA,  R.raw.phrase_where_are_you_going));
-        phrases.add(new Word("What is your name?","tinnә oyaase'nә", Utils.NO_DATA,  R.raw.phrase_what_is_your_name));
-        phrases.add(new Word("My name is...","oyaaset...", Utils.NO_DATA, R.raw.phrase_my_name_is));
-        phrases.add(new Word("How are you feeling?","michәksәs?", Utils.NO_DATA, R.raw.phrase_how_are_you_feeling));
-        phrases.add(new Word("I’m feeling good.","kuchi achit", Utils.NO_DATA, R.raw.phrase_im_feeling_good));
-        phrases.add(new Word("Are you coming?","әәnәs'aa?", Utils.NO_DATA, R.raw.phrase_are_you_coming));
-        phrases.add(new Word("Yes, I’m coming.","hәә’ әәnәm", Utils.NO_DATA, R.raw.phrase_yes_im_coming));
-        phrases.add(new Word("I’m coming.","әәnәm", Utils.NO_DATA, R.raw.phrase_im_coming));
-        phrases.add(new Word("Come here.","әnni'nem", Utils.NO_DATA,  R.raw.phrase_come_here));
 
     }
 
-    private void setUpAdapter(View rootView){
-        phrasesAdapter = new WordAdapter(getActivity(), phrases, Utils.PHRASES_FRAGMENT_NAME);
-        ListView listView = (ListView)rootView.findViewById(R.id.list);
+
+
+    private void setUpArrayAdapter(){
+         /*
+        * The adapter knows how to create layouts for each item in the list,
+        * using the simple_list_create_item_1.xml layout resource defined in
+        * the Android framework.
+        *
+        * This list item  layout contains  a simple (@Link TexView), which the
+        * adapter will set to display a single word.
+        * */
+
+        numbersAdapter = new WordAdapter(this, numbers);
+        ListView listView =  (ListView) findViewById(R.id.list);
+
+        /*
+        * Make the ListView use the ArrayAdapter  we created above, so that the
+        * ListView will display list item for each word in the list on words.
+        * To this by calling the setAdapter method on the ListView with the variable
+        * name itemAdapter.
+        * */
+
         if(listView != null){
-            listView.setAdapter(phrasesAdapter);
+            listView.setAdapter(numbersAdapter);
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view,
@@ -111,20 +125,43 @@ public class PhrasesFragment extends Fragment {
                         // We have audio focus  now.
                         //Create and setuo the MediaPlayer for the audio  resource associated
                         //with the current word
-                        audio = MediaPlayer.create(getActivity(), phrases.get(position).getAudioId());
+                        audio = MediaPlayer.create(NumbersActivity.this, numbers.get(position).getAudioId());
                         audio.start();
                         audio.setOnCompletionListener(mOnCompletionListener);
                     }
                 }
             });
+
+
         }
+
+    }
+
+    private void setUpNumbers(){
+        numbers = new ArrayList<>();
+        numbers.add(new Word("one", "lutti",R.drawable.number_one, R.raw.number_one));
+        numbers.add(new Word("two", "otiiko", R.drawable.number_two, R.raw.number_two));
+        numbers.add(new Word("three", "tolookosu", R.drawable.number_three, R.raw.number_three));
+        numbers.add(new Word("four", "oyyisa", R.drawable.number_four, R.raw.number_four));
+        numbers.add(new Word("five", "massokka",R.drawable.number_five,R.raw.number_five));
+        numbers.add(new Word("six", "temmokka", R.drawable.number_six, R.raw.number_six));
+        numbers.add(new Word("seven", "kenekaku", R.drawable.number_seven, R.raw.number_seven));
+        numbers.add(new Word("eight", "kawinta", R.drawable.number_eight, R.raw.number_eight));
+        numbers.add(new Word("nine", "wo'e", R.drawable.number_nine, R.raw.number_nine));
+        numbers.add(new Word("ten","na aacha", R.drawable.number_ten, R.raw.number_ten));
+
+
     }
 
     @Override
-    public void onStop() {
+    protected void onStop() {
         super.onStop();
-        audio =  Utils.releaseMediaPlayer(audio);
+        audio = Utils.releaseMediaPlayer(audio);
         mAudioManager = Utils.abandonFocus(mAudioManager, mAudioFocusChangeListener);
     }
+
+
+
+
 
 }

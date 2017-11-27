@@ -24,8 +24,10 @@ import java.util.List;
  */
 public class WordAdapter extends ArrayAdapter<Word> {
     public static final String TAG = WordAdapter.class.getName();
-
-    private String name;
+    public static final String NUMBER_CLASS_NAME = "NumbersActivity";
+    public static final String COLORS_CLASS_NAME = "ColorsActivity";
+    public static final String FAMILY_CLASS_NAME = "FamilyActivity";
+    public static final String PHRASES_CLASS_NAME = "PhrasesActivity";
 
     /*
     * The context is used to inflate the layout file, and the list is the data
@@ -38,13 +40,9 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
     public WordAdapter(Activity context, ArrayList<Word> words) {
         super(context, 0 , words);
-        name = " ";
     }
 
-    public WordAdapter(Activity context, ArrayList<Word> words, String name) {
-        super(context, 0 , words);
-        this.name = name;
-    }
+
 
     /*
     *Provides a view for an AdapterView(ListView GridView, etc)
@@ -84,19 +82,18 @@ public class WordAdapter extends ArrayAdapter<Word> {
             imageView.setVisibility(View.GONE);
 
 
-        View view = numberItemView.findViewById(R.id.text_list_id);
-
-        switch (name){
-            case Utils.NUMBER_FRAGMENT_NAME:
+        View view = (View)numberItemView.findViewById(R.id.text_list_id);
+        switch (getContext().getClass().getSimpleName()){
+            case NUMBER_CLASS_NAME:
                 view.setBackgroundResource(R.color.category_numbers);
                 break;
-            case Utils.COLORS_FRAGMENT_NAME:
+            case COLORS_CLASS_NAME:
                 view.setBackgroundResource(R.color.category_colors);
                 break;
-            case Utils.FAMILY_FRAGMENT_NAME:
+            case FAMILY_CLASS_NAME:
                 view.setBackgroundResource(R.color.category_family);
                 break;
-            case Utils.PHRASES_FRAGMENT_NAME:
+            case PHRASES_CLASS_NAME:
                 view.setBackgroundResource(R.color.category_phrases);
                 break;
             default:
